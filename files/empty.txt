@@ -1,0 +1,1 @@
+Drop your pdf files here. Don't delete this file because git ignores empty folders.

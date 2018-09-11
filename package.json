@@ -1,0 +1,12 @@
+{
+  "name": "parseCardResume",
+  "version": "1.0.0",
+  "description": "",
+  "main": "parseCardResume/parseCardResume.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "pdf-parse": "^1.0.8"
+  }
+}
