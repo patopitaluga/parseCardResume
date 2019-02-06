@@ -182,8 +182,10 @@ let parseCardResume = (fileName, options) => {
             output += '  <tr>' + "\n";
             if (typeof eachRow[6] === 'undefined') eachRow[6] = '';
             eachRow[0] = eachRow[0].toLowerCase();
-            eachRow[5] = eachRow[5].replace('.', '');
-            eachRow[5] = eachRow[5].replace(',', '.');
+            if (typeof eachRow[5] !== 'undefined')
+              eachRow[5] = eachRow[5].replace('.', '');
+            if (typeof eachRow[5] !== 'undefined')
+              eachRow[5] = eachRow[5].replace(',', '.');
             eachRow[6] = eachRow[6].replace('.', '');
             eachRow[6] = eachRow[6].replace(',', '.');
             for (let r = 0; r < longestRow; r++) {

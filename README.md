@@ -1,6 +1,8 @@
 # Argentina pdf's credit card summary parser
 # / Analizador de pdf's de resumen de tarjeta de crédito
 
+WIP
+
 For now only tested with Visa Banco Galicia - Argentina.
 Por ahora solo probado para Visa Banco Galicia de Argentina.
 
@@ -11,20 +13,30 @@ Privacidad: Este script no emite datos al exterior ni realiza ningún relevamien
 
 Advertencia: No suba sus documentos a un repositorio si poseen datos confidenciales. No transfiera sus documentos en redes inseguras.
 
-## Uso
+## As a server
 Node
 ```
-const parseCardResume = require('./parseCardResume');
+npm install
+npm run start
+```
+Then open localhost:3000 and drag and drop the pdf file in the browser.
 
-parseCardResume('files/filename.pdf', options)
-.then((result) => {
-  console.log(result);
+## As a javascript module.
+```
+const parseCardResume = require('parseCardResume');
+
+parseCardResume(filePath, options)
+.then((table) => {
+  res.send(table);
 });
 ```
 
+Options
+```
 options: Object {
   format: 'html' // if not set will return an array by default.
 }
+```
 
 Returns a Promise.
 Devuelve un Promise.

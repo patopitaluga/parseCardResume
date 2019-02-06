@@ -1,0 +1,77 @@
+<html>
+<head>
+  <title>Credit Card PDF parser</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    .dropzone-icon {
+      align-items: center;
+      border: 1px #666 solid;
+      display: flex;
+      height: 200px;
+      justify-content: center;
+      text-align: center;
+      width: 200px;
+    }
+    .dropzone-icon--over {
+      border: 6px #000 solid;
+    }
+  </style>
+</head>
+<body>
+  <div id="dropzone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);" ondragleave="dragOutHandler(event);" style="display: flex; align-items: center; justify-content: center;height: 100vh">
+    <div class="dropzone-icon" id="dropzone-icon">
+      <p>Drag pdf file here</p>
+    </div>
+  </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+<script>
+  function dropHandler(ev) {
+    ev.preventDefault();
+    document.getElementById('dropzone-icon').innerHTML = 'Uploading';
+
+    if (ev.dataTransfer.items) {
+      // Use DataTransferItemList interface to access the file(s)
+      for (var i = 0; i < ev.dataTransfer.items.length; i++) {
+        // If dropped items aren't files, reject them
+        if (ev.dataTransfer.items[i].kind === 'file') {
+          var file = ev.dataTransfer.items[i].getAsFile();
+          var formData = new FormData();
+          formData.append('file', file);
+          axios.post('/processpdf', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          })
+          .then(function(response) {
+            document.body.innerHTML = response.data;
+          });
+
+          // console.log('... file[' + i + '].name = ' + file.name);
+        }
+      }
+    } else {
+      // Use DataTransfer interface to access the file(s)
+      for (var i = 0; i < ev.dataTransfer.files.length; i++) {
+        // console.log('... file[' + i + '].name = ' + ev.dataTransfer.files[i].name);
+      }
+    }
+  }
+
+  function dragOverHandler(ev) {
+    ev.preventDefault();
+    document.getElementById('dropzone-icon').classList.add('dropzone-icon--over');
+  }
+
+  function dragOutHandler(ev) {
+    ev.preventDefault();
+    document.getElementById('dropzone-icon').classList.remove('dropzone-icon--over');
+  }
+</script>
+</body>
+</html>
